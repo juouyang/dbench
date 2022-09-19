@@ -3,7 +3,9 @@ apiVersion: v1
 metadata:
   name: dbench-pv-claim
 spec:
-  storageClassName: ssd
+  storageClassName: vxflexos
+  # storageClassName: vxflexos-xfs
+  # storageClassName: ssd
   # storageClassName: gp2
   # storageClassName: local-storage
   # storageClassName: ibmc-block-bronze
@@ -13,7 +15,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1000Gi
+      storage: 400Gi
 ---
 apiVersion: batch/v1
 kind: Job
@@ -24,7 +26,7 @@ spec:
     spec:
       containers:
       - name: dbench
-        image: logdna/dbench:latest
+        image: zayashv/dbench@sha256:5186d2e2acca33d98b0f50a2fba3463bf0ebe30864c8dbd529f234651c462db4
         imagePullPolicy: Always
         env:
           - name: DBENCH_MOUNTPOINT
